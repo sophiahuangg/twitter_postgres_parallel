@@ -8,8 +8,9 @@ echo '==========================================================================
 # FIXME: implement this
 
 #for file in $(find data); do
-#    sh load_denormalized.sh $file
+#    time sh load_denormalized.sh $file
 #done
+
 echo "$files" | time parallel ./load_denormalized.sh
 
 echo '================================================================================'

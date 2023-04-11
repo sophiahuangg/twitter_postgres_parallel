@@ -363,7 +363,7 @@ def _insert_tweets(connection,input_tweets):
     ######################################## 
     # STEP 2: perform the actual SQL inserts
     ######################################## 
-    with connection.begin() as trans:
+    #with connection.begin() as trans:
 
         # use the bulk_insert function to insert most of the data
         bulk_insert(connection, 'users', users)
@@ -396,7 +396,6 @@ def _insert_tweets(connection,input_tweets):
             )
         res = connection.execute(sql, { key+str(i):value for i,tweet in enumerate(tweets) for key,value in tweet.items() })
 
-
 if __name__ == '__main__':
 
     # process command line args
@@ -417,7 +416,7 @@ if __name__ == '__main__':
     # NOTE:
     # we reverse sort the filenames because this results in fewer updates to the users table,
     # which prevents excessive dead tuples and autovacuums
-#    with connection.begin() as trans:
+    with connection.begin() as trans:
         for filename in sorted(args.inputs, reverse=True):
             with zipfile.ZipFile(filename, 'r') as archive: 
                 print(datetime.datetime.now(),filename)
